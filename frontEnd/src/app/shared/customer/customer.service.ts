@@ -19,12 +19,12 @@ export class CustomerService {
   }
 
 
-  save(car: any): Observable<any> {
+  save(customer: any): Observable<any> {
     let result: Observable<Object>;
-    if (car['href']) {
-      result = this.http.put(car.href, car);
+    if (customer['href']) {
+      result = this.http.put(customer.href, customer);
     } else {
-      result = this.http.post(this.CAR_API, car);
+      result = this.http.post(this.CAR_API, customer);
     }
     return result;
   }
