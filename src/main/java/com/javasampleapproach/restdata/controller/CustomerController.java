@@ -27,7 +27,7 @@ public class CustomerController {
     }
 
     private boolean isCool(Customer customer) {
-        return !customer.getFirstName().equals("Jack") &&
-                !customer.getFirstName().equals("Kim");
+        return !customer.getFirstName().equals("") &&
+                !customer.getFirstName().equals("tests");
     }
 }
