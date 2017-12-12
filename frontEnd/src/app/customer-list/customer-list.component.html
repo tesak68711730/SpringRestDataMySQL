@@ -1,14 +1,24 @@
-<h2>Customers List</h2>
+<mat-card>
+  <mat-card-header>Cuatomers List</mat-card-header>
+  <mat-card-content>
+    <mat-list>
+      <mat-list-item *ngFor="let customer of customers">
+        <img mat-list-avatar src="{{customer.giphyUrl}}" alt="{{customer.firstName}}">
+        <h3 mat-line>
+          <a mat-button [routerLink]="['/customer-edit', customer.id]">{{customer.firstName}}  {{customer.lastName}}</a>
+        </h3>
+      </mat-list-item>
+    </mat-list>
+  </mat-card-content>
 
-<div *ngFor="let car of cars">
-  {{car}}
-</div>
+  <button mat-fab color="primary" [routerLink]="['/customer-add']">Add</button>
+</mat-card>
 
 
 
 
-<p>https://developer.okta.com/blog/2017/12/04/basic-crud-angular-and-spring-boot#enable-cors-on-the-server</p>
+<!--<p>https://developer.okta.com/blog/2017/12/04/basic-crud-angular-and-spring-boot#enable-cors-on-the-server</p>-->
 
 
-<p>Postman app for test restFull</p>
-<p>Bitnami wamp server</p>
+<!--<p>Postman app for test restFull</p>-->
+<!--<p>Bitnami wamp server</p>-->
