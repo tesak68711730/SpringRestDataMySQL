@@ -12,7 +12,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from "@angular/common/http";
 import { GiphyService } from "./shared/giphy/giphy.service";
 import { CustomerEditComponent } from './customer-edit/customer-edit.component';
-import { CustomerAddComponent } from './customer-add/customer-add.component';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/customer-list', pathMatch: 'full' },
@@ -34,8 +33,7 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     CustomerListComponent,
-    CustomerEditComponent,
-    CustomerAddComponent
+    CustomerEditComponent
   ],
   imports: [
     BrowserModule,

@@ -24,6 +24,7 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
     this.sub = this.route.params.subscribe(params => {
       const id = params['id'];
       if (id) {
+        console.log('Call onInit method');
         this.customerService.get(id).subscribe((customer:any) => {
           if(customer){
             this.customer = customer;
@@ -39,22 +40,26 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    console.log('Call onDestroy method');
     this.sub.unsubscribe();
   }
 
   private gotoList() {
+    console.log('Call gotoList method');
     this.router.navigate(['/customer-list']);
   }
 
   save(form: NgForm) {
+    console.log('Call save method');
     this.customerService.save(form).subscribe(result => {
-      this.gotoList();
-    }, error => console.error(error))
+     this.gotoList();
+   }, error => console.error(error));
   }
 
   remove(href) {
+    console.log('Call remove method');
     this.customerService.remove(href).subscribe(result => {
       this.gotoList();
-    }, error => console.error(error))
+    }, error => console.error(error));
   }
 }

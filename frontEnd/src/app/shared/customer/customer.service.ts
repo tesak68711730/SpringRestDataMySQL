@@ -6,7 +6,7 @@ import { Observable } from "rxjs/Observable";
 export class CustomerService {
 
   public API = '//localhost:8080';
-  public CAR_API = this.API + '/customers';
+  public CAR_API = this.API + '/customer';
 
   constructor(private http: HttpClient) { }
 
@@ -22,14 +22,17 @@ export class CustomerService {
   save(customer: any): Observable<any> {
     let result: Observable<Object>;
     if (customer['href']) {
-      result = this.http.put(customer.href, customer);
+      console.log('Call save method --> put');
+      result = this.http.patch(customer.href, customer);
     } else {
+      console.log('Call save method --> post');
       result = this.http.post(this.CAR_API, customer);
     }
     return result;
   }
 
   remove(href: string) {
+    console.log('Call remove method --> delete');
     return this.http.delete(href);
   }
 }
