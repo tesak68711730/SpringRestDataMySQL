@@ -5,7 +5,7 @@
       <mat-list-item *ngFor="let customer of customers">
         <img mat-list-avatar src="{{customer.giphyUrl}}" alt="{{customer.firstName}}">
         <h3 mat-line>
-          <a mat-button [routerLink]="['/customer-edit/', customer.id]">{{customer.firstName}} {{customer.lastName}}}</a>
+          <a mat-button [routerLink]="['/customer-edit/', customer.id]">{{customer.firstName}} {{customer.lastName}}</a>
         </h3>
       </mat-list-item>
     </mat-list>
