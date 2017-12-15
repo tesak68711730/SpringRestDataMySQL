@@ -12,9 +12,18 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from "@angular/common/http";
 import { GiphyService } from "./shared/giphy/giphy.service";
 import { CustomerEditComponent } from './customer-edit/customer-edit.component';
+import { LoginFormComponent } from './login-form/login-form.component';
+import { HttpModule } from "@angular/http";
 
 const appRoutes: Routes = [
-  { path: '', redirectTo: '/customer-list', pathMatch: 'full' },
+  { path: '',
+    redirectTo: '/login',
+    pathMatch: 'full'
+  },
+  {
+    path: 'login',
+    component: LoginFormComponent
+  },
   {
     path: 'customer-list',
     component: CustomerListComponent
@@ -33,7 +42,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     CustomerListComponent,
-    CustomerEditComponent
+    CustomerEditComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
@@ -45,9 +55,10 @@ const appRoutes: Routes = [
     MatListModule,
     MatToolbarModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes)
+    RouterModule.forRoot(appRoutes),
+    HttpModule
   ],
-  providers: [CustomerService, GiphyService],
+  providers: [CustomerService, GiphyService, LoginFormComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
