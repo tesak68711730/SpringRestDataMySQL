@@ -14,6 +14,7 @@ import { GiphyService } from "./shared/giphy/giphy.service";
 import { CustomerEditComponent } from './customer-edit/customer-edit.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { HttpModule } from "@angular/http";
+import { AuthGuard } from "./shared/auth/auth.guard";
 
 const appRoutes: Routes = [
   { path: '',
@@ -26,14 +27,17 @@ const appRoutes: Routes = [
   },
   {
     path: 'customer-list',
+    canActivate: [AuthGuard],
     component: CustomerListComponent
   },
   {
     path: 'customer-add',
+    canActivate: [AuthGuard],
     component: CustomerEditComponent
   },
   {
     path: 'customer-edit/:id',
+    canActivate: [AuthGuard],
     component: CustomerEditComponent
   }
 ];
@@ -58,7 +62,7 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes),
     HttpModule
   ],
-  providers: [CustomerService, GiphyService, LoginFormComponent],
+  providers: [CustomerService, GiphyService, LoginFormComponent, AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

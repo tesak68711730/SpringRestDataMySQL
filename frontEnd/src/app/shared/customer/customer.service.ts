@@ -8,7 +8,19 @@ export class CustomerService {
   public API = '//localhost:8080';
   public CAR_API = this.API + '/customer';
 
-  constructor(private http: HttpClient) { }
+  private isCustomerLoggedIn;
+
+  constructor(private http: HttpClient) {
+    this.isCustomerLoggedIn = false;
+  }
+
+  setCustomerLoggedIn(){
+    this.isCustomerLoggedIn = true;
+  }
+
+  getCustomerLoggedIn(){
+    return this.isCustomerLoggedIn;
+  }
 
   getAll(): Observable<any> {
     return this.http.get(this.API + '/customers');
