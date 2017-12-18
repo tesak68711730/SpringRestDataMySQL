@@ -17,6 +17,7 @@ import { HttpModule } from "@angular/http";
 import { AuthGuard } from "./shared/auth/auth.guard";
 import { TableViewComponent } from './table-view/table-view.component';
 import { GridViewComponent } from './grid-view/grid-view.component';
+import {GridModule} from "@progress/kendo-angular-grid";
 
 const appRoutes: Routes = [
   { path: '',
@@ -74,7 +75,11 @@ const appRoutes: Routes = [
     MatToolbarModule,
     FormsModule,
     RouterModule.forRoot(appRoutes),
-    HttpModule
+    HttpModule,
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    GridModule
   ],
   providers: [CustomerService, GiphyService, LoginFormComponent, AuthGuard],
   bootstrap: [AppComponent]
