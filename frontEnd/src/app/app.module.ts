@@ -15,6 +15,8 @@ import { CustomerEditComponent } from './customer-edit/customer-edit.component';
 import { LoginFormComponent } from './login-form/login-form.component';
 import { HttpModule } from "@angular/http";
 import { AuthGuard } from "./shared/auth/auth.guard";
+import { TableViewComponent } from './table-view/table-view.component';
+import { GridViewComponent } from './grid-view/grid-view.component';
 
 const appRoutes: Routes = [
   { path: '',
@@ -39,6 +41,16 @@ const appRoutes: Routes = [
     path: 'customer-edit/:id',
     canActivate: [AuthGuard],
     component: CustomerEditComponent
+  },
+  {
+    path: 'table-view',
+    canActivate: [AuthGuard],
+    component: TableViewComponent
+  },
+  {
+    path: 'grid-view',
+    // canActivate: [AuthGuard],
+    component: GridViewComponent
   }
 ];
 
@@ -47,7 +59,9 @@ const appRoutes: Routes = [
     AppComponent,
     CustomerListComponent,
     CustomerEditComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    TableViewComponent,
+    GridViewComponent
   ],
   imports: [
     BrowserModule,

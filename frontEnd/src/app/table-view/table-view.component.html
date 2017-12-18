@@ -1,0 +1,26 @@
+<div>
+  <table>
+    <tr>
+      <th># Id</th>
+      <th>First Name</th>
+      <th>Second Name</th>
+      <th>Options</th>
+    </tr>
+    <tr *ngFor="let customer of customers">
+      <td>{{customer.id}}</td>
+      <td>{{customer.firstName}}</td>
+      <td>{{customer.lastName}}</td>
+      <td>
+        <button (click)="edit(customer.id)">Edit/Delete</button>
+      </td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>
+        <button [routerLink]="['/customer-add']">Add</button>
+      </td>
+    </tr>
+  </table>
+</div>

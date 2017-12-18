@@ -40,18 +40,4 @@ export class LoginFormComponent implements OnInit {
         this.router.navigate(['/customer-list'])
     });
   }
-
-
-
-  // private getContacts() {
-  //   this.http.get(this.searchUrl + '' + pass)
-  //     .map((res: Response) => res.json()).subscribe( data => {
-  //     this.data = data;
-  //   });
-  // }
-  //
-  // private getData() {
-  //   return this.http.get(this.searchUrl + '' + pass)
-  //     .map((res: Response) => res.json());
-  // }
 }
