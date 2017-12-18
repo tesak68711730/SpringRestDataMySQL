@@ -63,6 +63,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import { State, process } from '@progress/kendo-data-query';
 import {EditService} from "./Service/edit.service";
+import {Product} from "./model/Product";
 
 
 
@@ -180,3 +181,6 @@ export class AppComponent implements OnInit {
     this.formGroup = undefined;
   }
 }
+
+
+// https://www.telerik.com/kendo-angular-ui/components/grid/data-operations/filtering/#toc-customizing-filters
