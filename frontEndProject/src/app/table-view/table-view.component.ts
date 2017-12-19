@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from "../shared/customer/customer.service";
-import {ActivatedRoute, Router} from "@angular/router";
-import {Subscription} from "rxjs/Subscription";
-import {GiphyService} from "../shared/giphy/giphy.service";
+import { Router} from "@angular/router";
 
 @Component({
   selector: 'app-table-view',
@@ -22,12 +20,10 @@ export class TableViewComponent implements OnInit {
 
   ngOnInit() {}
 
-
   edit(id){
     console.log('onClick press edit' + id);
     this.router.navigate(['/customer-edit/' + id]);
   }
-
 
   remove(href) {
     console.log('Call delete method -->  ' + href);

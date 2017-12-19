@@ -62,7 +62,6 @@ export class EditService extends BehaviorSubject<any[]> {
   }
 
   private fetch(action: string = '', data?: any): Observable<any[]>  {
-    console.log('fetch func call -->  ' + `https://demos.telerik.com/kendo-ui/service/Products/${action}?${this.serializeModels(data)}`, 'callback')
     return this.http
       .jsonp(`https://demos.telerik.com/kendo-ui/service/Products/${action}?${this.serializeModels(data)}`, 'callback')
       .map(res => <any[]>res);

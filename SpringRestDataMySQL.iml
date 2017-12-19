@@ -25,6 +25,8 @@
       <sourceFolder url="file://$MODULE_DIR$/src/test/java" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/frontEnd/dist" />
       <excludeFolder url="file://$MODULE_DIR$/frontEnd/tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/frontEndProject/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/frontEndProject/tmp" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

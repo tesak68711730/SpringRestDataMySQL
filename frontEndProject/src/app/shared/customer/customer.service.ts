@@ -34,17 +34,17 @@ export class CustomerService {
   save(customer: any): Observable<any> {
     let result: Observable<Object>;
     if (customer['href']) {
-      console.log('Call save method --> put');
+      console.log('Call save method --> put     ----   ' + customer.href, customer);
       result = this.http.patch(customer.href, customer);
     } else {
-      console.log('Call save method --> post');
+      console.log('Call save method --> post   -----   ' + this.CAR_API, customer);
       result = this.http.post(this.CAR_API, customer);
     }
     return result;
   }
 
   remove(href: string) {
-    console.log('Call remove method --> delete');
+    console.log('Call remove method --> delete   -----   ' + href);
     return this.http.delete(href);
   }
 }
