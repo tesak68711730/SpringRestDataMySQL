@@ -16,6 +16,7 @@ import { EditService } from './service/edit.service';
 })
 export class GridViewComponent implements OnInit {
   public view: Observable<GridDataResult>;
+  customer: any = {};
   public gridState: State = {
     sort: [],
     skip: 0,
@@ -32,6 +33,9 @@ export class GridViewComponent implements OnInit {
 
   public ngOnInit(): void {
     this.view = this.editService.map(data => process(data, this.gridState));
+    this.customer = this.view._isScalar.valueOf();
+    console.log('all data to send to grid');
+    console.log(this.customer);
 
     this.editService.read();
   }
