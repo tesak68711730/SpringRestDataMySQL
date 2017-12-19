@@ -62,42 +62,14 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 import { GridDataResult } from '@progress/kendo-angular-grid';
 import { State, process } from '@progress/kendo-data-query';
-import {EditService} from "./Service/edit.service";
-import {Product} from "./model/Product";
 
-
-
+import { Product } from './model/Product';
+import { EditService } from './Service/edit.service';
 
 @Component({
-  selector: 'my-app',
-  template: `
-      <kendo-grid
-          [data]="view | async"
-          [height]="533"
-          [pageSize]="gridState.take" [skip]="gridState.skip" [sort]="gridState.sort"
-          [pageable]="true" [sortable]="true"
-          (dataStateChange)="onStateChange($event)"
-          (edit)="editHandler($event)" (cancel)="cancelHandler($event)"
-          (save)="saveHandler($event)" (remove)="removeHandler($event)"
-          (add)="addHandler($event)"
-        >
-        <ng-template kendoGridToolbarTemplate>
-            <button kendoGridAddCommand>Add new</button>
-        </ng-template>
-        <kendo-grid-column field="ProductName" title="Product Name"></kendo-grid-column>
-        <kendo-grid-column field="UnitPrice" editor="numeric" title="Price"></kendo-grid-column>
-        <kendo-grid-column field="Discontinued" editor="boolean" title="Discontinued"></kendo-grid-column>
-        <kendo-grid-column field="UnitsInStock" editor="numeric" title="Units In Stock"></kendo-grid-column>
-        <kendo-grid-command-column title="command" width="220">
-            <ng-template kendoGridCellTemplate let-isNew="isNew">
-                <button kendoGridEditCommand class="k-primary">Edit</button>
-                <button kendoGridRemoveCommand>Remove</button>
-                <button kendoGridSaveCommand [disabled]="formGroup?.invalid">{{ isNew ? 'Add' : 'Update' }}</button>
-                <button kendoGridCancelCommand>{{ isNew ? 'Discard changes' : 'Cancel' }}</button>
-            </ng-template>
-        </kendo-grid-command-column>
-      </kendo-grid>
-  `
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
   public view: Observable<GridDataResult>;
@@ -182,5 +154,12 @@ export class AppComponent implements OnInit {
   }
 }
 
-
 // https://www.telerik.com/kendo-angular-ui/components/grid/data-operations/filtering/#toc-customizing-filters
+/*  fetch func call -->  https://demos.telerik.com/kendo-ui/service/Products/? callback
+core.js:3660 Angular is running in the development mode. Call enableProdMode() to enable the production mode.
+edit.service.ts:65 fetch func call -->  https://demos.telerik.com/kendo-ui/service/Products/create?&models=[{"ProductID":null,"ProductName":"asd","UnitPrice":1,"UnitsInStock":23,"Discontinued":true}] callback
+edit.service.ts:65 fetch func call -->  https://demos.telerik.com/kendo-ui/service/Products/? callback
+edit.service.ts:65 fetch func call -->  https://demos.telerik.com/kendo-ui/service/Products/update?&models=[{"ProductID":79,"ProductName":"test","UnitPrice":3,"UnitsInStock":123,"Discontinued":false}] callback
+edit.service.ts:65 fetch func call -->  https://demos.telerik.com/kendo-ui/service/Products/? callback
+edit.service.ts:65 fetch func call -->  https://demos.telerik.com/kendo-ui/service/Products/destroy?&models=[{"ProductID":79,"ProductName":"test","UnitPrice":3,"UnitsInStock":123,"Discontinued":false}] callback
+edit.service.ts:65 fetch func call -->  https://demos.telerik.com/kendo-ui/service/Products/? callback  */
