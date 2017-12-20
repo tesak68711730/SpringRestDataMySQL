@@ -8,7 +8,6 @@ import { State, process } from "@progress/kendo-data-query";
 import { Product } from './model';
 import { EditService } from './service/edit.service';
 
-
 @Component({
   selector: 'app-grid-view',
   templateUrl: './grid-view.component.html',
@@ -33,7 +32,7 @@ export class GridViewComponent implements OnInit {
 
   public ngOnInit(): void {
     this.view = this.editService.map(data => process(data, this.gridState));
-    this.customer = this.view._isScalar.valueOf();
+    this.customer = this.view;
     console.log('all data to send to grid');
     console.log(this.customer);
 
@@ -42,7 +41,6 @@ export class GridViewComponent implements OnInit {
 
   public onStateChange(state: State) {
     this.gridState = state;
-
     this.editService.read();
   }
 
@@ -84,9 +82,7 @@ export class GridViewComponent implements OnInit {
 
   public saveHandler({sender, rowIndex, formGroup, isNew}) {
     const product: Product = formGroup.value;
-
     this.editService.save(product, isNew);
-
     sender.closeRow(rowIndex);
   }
 

@@ -9,7 +9,7 @@ import { CustomerService } from "./shared/customer/customer.service";
 import { CustomerListComponent } from './customer-list/customer-list.component';
 import { MatButtonModule, MatCardModule, MatInputModule, MatListModule, MatToolbarModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {HttpClient, HttpClientJsonpModule, HttpClientModule} from "@angular/common/http";
+import { HttpClient, HttpClientJsonpModule, HttpClientModule } from "@angular/common/http";
 import { GiphyService } from "./shared/giphy/giphy.service";
 import { CustomerEditComponent } from './customer-edit/customer-edit.component';
 import { LoginFormComponent } from './login-form/login-form.component';
@@ -17,8 +17,10 @@ import { HttpModule } from "@angular/http";
 import { AuthGuard } from "./shared/auth/auth.guard";
 import { TableViewComponent } from './table-view/table-view.component';
 import { GridViewComponent } from './grid-view/grid-view.component';
-import {GridModule} from "@progress/kendo-angular-grid";
-import {EditService} from "./grid-view/service/edit.service";
+import { GridModule } from "@progress/kendo-angular-grid";
+import { EditService } from "./grid-view/service/edit.service";
+import { GridSimpleViewComponent } from './grid-simple-view/grid-simple-view.component';
+import { DialogModule } from '@progress/kendo-angular-dialog';
 
 const appRoutes: Routes = [
   { path: '',
@@ -52,7 +54,12 @@ const appRoutes: Routes = [
   {
     path: 'grid-view',
     canActivate: [AuthGuard],
-    component: GridViewComponent
+    component: GridViewComponent,
+  },
+  {
+    path: 'grid-simple-view',
+    canActivate: [AuthGuard],
+    component: GridSimpleViewComponent
   }
 ];
 
@@ -63,7 +70,8 @@ const appRoutes: Routes = [
     CustomerEditComponent,
     LoginFormComponent,
     TableViewComponent,
-    GridViewComponent
+    GridViewComponent,
+    GridSimpleViewComponent
   ],
   imports: [
     BrowserModule,
