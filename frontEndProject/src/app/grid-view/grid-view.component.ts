@@ -1,6 +1,6 @@
-import {Observable} from "rxjs/Observable";
-import {Component, Inject, OnInit} from "@angular/core";
-import {FormControl, FormGroup, Validators} from "@angular/forms";
+import { Observable } from "rxjs/Observable";
+import { Component, Inject, OnInit } from "@angular/core";
+import { FormControl, FormGroup, Validators} from "@angular/forms";
 
 import { GridDataResult } from "@progress/kendo-angular-grid";
 import { State, process } from "@progress/kendo-data-query";
@@ -33,8 +33,6 @@ export class GridViewComponent implements OnInit {
   public ngOnInit(): void {
     this.view = this.editService.map(data => process(data, this.gridState));
     this.customer = this.view;
-    console.log('all data to send to grid');
-    console.log(this.customer);
 
     this.editService.read();
   }

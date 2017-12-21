@@ -31,7 +31,7 @@ export class EditService extends BehaviorSubject<any[]> {
 
   public save(data: any, isNew?: boolean) {
     const action = isNew ? CREATE_ACTION : UPDATE_ACTION;
-
+    console.log('data -->> ' + data);
     this.reset();
 
     this.fetch(action, data)

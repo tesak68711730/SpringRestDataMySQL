@@ -5,21 +5,22 @@ import { GridDataResult, DataStateChangeEvent } from '@progress/kendo-angular-gr
 import { CustomerService } from "../shared/customer/customer.service";
 import { Http, Response } from "@angular/http";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import {Router} from "@angular/router";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-grid-simple-view',
   templateUrl: './grid-simple-view.component.html',
   styleUrls: ['./grid-simple-view.component.scss']
 })
-export class GridSimpleViewComponent{
+export class GridSimpleViewComponent {
 
   customers: any = {};
-  private searchUrl = 'http://localhost:8080/customers';
+  private getDataUrl = 'http://localhost:8080/customers';
+  private daoUrl = 'http://localhost:8080/customer';
 
   constructor(private customerService: CustomerService, private http: Http, private router: Router) {
 
-    this.http.get(this.searchUrl)
+    this.http.get(this.getDataUrl)
       .map((res: Response) => res.json()).subscribe( data => {
       this.customers = data;
       console.log('customers');
@@ -43,8 +44,7 @@ export class GridSimpleViewComponent{
   };
   public formGroup: FormGroup;
   private editedRowIndex: number;
-
-  public gridData: GridDataResult = process(this.customers, this.state);
+  public gridData: GridDataResult;
 
   public dataStateChange(state: DataStateChangeEvent): void {
     this.state = state;
@@ -74,12 +74,35 @@ export class GridSimpleViewComponent{
     console.log(rowIndex);
     console.log('dataItem');
     console.log(dataItem);
+    this.closeEditor(sender);
+
+    this.formGroup = new FormGroup({
+      'id': new FormControl(dataItem.id),
+      'firstName': new FormControl(dataItem.firstName, Validators.required),
+      'lastName': new FormControl(dataItem.lastName, Validators.required)
+    });
+
+    this.editedRowIndex = rowIndex;
+
+    sender.editRow(rowIndex, this.formGroup);
   }
 
   saveHandler({sender, rowIndex, formGroup, isNew}): void{
     console.log('save');
-    console.log('formGroup');
-    console.log(this.formGroup);
+    console.log('is new ?  -- ' + isNew);
+    const customerDao: any = formGroup.value;
+    if (!isNew) {
+      console.log('Call edit method --> put     ----   ' + this.daoUrl, 'formGrup save put -->>  ' + formGroup.value);
+      this.http.patch(this.daoUrl + '/' + customerDao.id, formGroup.value).subscribe(result => {
+
+      }, error => console.error(error));
+    } else {
+      console.log('add in grid --->>>  ' + this.daoUrl, 'formGrup save post -->>  ' + formGroup.value);
+      this.http.post(this.daoUrl, formGroup.value).subscribe(result => {
+
+      }, error => console.error(error));
+    }
+    sender.closeRow(rowIndex);
   }
 
   public cancelHandler({sender, rowIndex}) {
@@ -87,11 +110,11 @@ export class GridSimpleViewComponent{
   }
 
   public removeHandler({dataItem}) {
-    const deleteVar = 'http://localhost:8080/customer/';
-    console.log('Call remove method' + deleteVar + dataItem.id);
-    this.customerService.remove(deleteVar + dataItem.id).subscribe(result => {
+    console.log('Call remove method' + this.daoUrl + dataItem.id);
+    this.customerService.remove(this.daoUrl + '/' + dataItem.id).subscribe(result => {
 
     }, error => console.error(error));
+    this.gridData;
   }
 
   private closeEditor(grid, rowIndex = this.editedRowIndex) {

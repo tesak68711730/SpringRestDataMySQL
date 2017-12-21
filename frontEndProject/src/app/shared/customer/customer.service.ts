@@ -37,7 +37,7 @@ export class CustomerService {
       console.log('Call save method --> put     ----   ' + customer.href, customer);
       result = this.http.patch(customer.href, customer);
     } else {
-      console.log('Call save method --> post   -----   ' + this.CAR_API, customer);
+      console.log('Call save method --> post   -----   ' + this.CAR_API, 'customer obb -->>  ' + customer);
       result = this.http.post(this.CAR_API, customer);
     }
     return result;
