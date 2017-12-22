@@ -1,18 +1,13 @@
 package com.javasampleapproach.restdata;
 
-import com.javasampleapproach.restdata.model.Customer;
 import com.javasampleapproach.restdata.repository.CustomerRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import java.util.stream.Stream;
-
 @SpringBootApplication
 public class SpringRestDataMySqlApplication implements CommandLineRunner {
 
-    @Autowired
 	CustomerRepository customerRepository;
 
 	public static void main(String[] args) {

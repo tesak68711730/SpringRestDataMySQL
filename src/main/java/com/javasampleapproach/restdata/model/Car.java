@@ -1,18 +1,16 @@
 package com.javasampleapproach.restdata.model;
 
-import lombok.*;
-
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Entity;
 
 @Entity
-@NoArgsConstructor
-@ToString @EqualsAndHashCode
 public class Car {
-    @Id @GeneratedValue
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private @NonNull String name;
+    private String name;
 
     public Long getId() {
         return id;
