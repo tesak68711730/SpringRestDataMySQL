@@ -24,8 +24,7 @@ export class GridSimpleViewComponent {
       .map((res: Response) => res.json()).subscribe( data => {
       this.customers = data;
       console.log('customers');
-      console.log(this.customers);//._embedded.customer
-
+      console.log(this.customers);
     });
   }
 
@@ -67,13 +66,6 @@ export class GridSimpleViewComponent {
   }
 
   editHandler({sender, rowIndex, dataItem}): void{
-    console.log('edit');
-    console.log('sender');
-    console.log(sender);
-    console.log('rowIndex');
-    console.log(rowIndex);
-    console.log('dataItem');
-    console.log(dataItem);
     this.closeEditor(sender);
 
     this.formGroup = new FormGroup({

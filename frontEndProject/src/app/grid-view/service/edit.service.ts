@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import {Response} from "@angular/http";
 
 const CREATE_ACTION = 'create';
 const UPDATE_ACTION = 'update';
@@ -16,6 +17,7 @@ export class EditService extends BehaviorSubject<any[]> {
   private data: any[] = [];
 
   public read() {
+    console.log('read func');
     if (this.data.length) {
       return super.next(this.data);
     }
@@ -23,6 +25,7 @@ export class EditService extends BehaviorSubject<any[]> {
     this.fetch()
       .do(data => {
         this.data = data;
+        console.log(JSON.stringify([data]))
       })
       .subscribe(data => {
         super.next(data);
@@ -30,8 +33,8 @@ export class EditService extends BehaviorSubject<any[]> {
   }
 
   public save(data: any, isNew?: boolean) {
+    console.log('save func data' + data + 'isNew ? ' + isNew);
     const action = isNew ? CREATE_ACTION : UPDATE_ACTION;
-    console.log('data -->> ' + data);
     this.reset();
 
     this.fetch(action, data)
@@ -39,6 +42,7 @@ export class EditService extends BehaviorSubject<any[]> {
   }
 
   public remove(data: any) {
+    console.log('remove func');
     this.reset();
 
     this.fetch(REMOVE_ACTION, data)
@@ -46,6 +50,7 @@ export class EditService extends BehaviorSubject<any[]> {
   }
 
   public resetItem(dataItem: any) {
+    console.log('reset item func');
     if (!dataItem) { return; }
 
     // find orignal data item
@@ -58,16 +63,22 @@ export class EditService extends BehaviorSubject<any[]> {
   }
 
   private reset() {
+    console.log('reset func ');
     this.data = [];
   }
 
   private fetch(action: string = '', data?: any): Observable<any[]>  {
+    console.log('fetch func param' + action + ' -  data' + data + '  data-->> ' + JSON.stringify(this.http
+      .jsonp(`https://demos.telerik.com/kendo-ui/service/Products/${action}?${this.serializeModels(data)}`, 'callback')
+      .map(res => <any[]>res)));
     return this.http
       .jsonp(`https://demos.telerik.com/kendo-ui/service/Products/${action}?${this.serializeModels(data)}`, 'callback')
       .map(res => <any[]>res);
   }
 
   private serializeModels(data?: any): string {
+    console.log('serialize func');
+    console.log(data ? `&models=${JSON.stringify([data])}` : 'empty');
     return data ? `&models=${JSON.stringify([data])}` : '';
   }
 }

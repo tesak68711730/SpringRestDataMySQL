@@ -20,7 +20,6 @@ import { GridViewComponent } from './grid-view/grid-view.component';
 import { GridModule } from "@progress/kendo-angular-grid";
 import { EditService } from "./grid-view/service/edit.service";
 import { GridSimpleViewComponent } from './grid-simple-view/grid-simple-view.component';
-import { DialogModule } from '@progress/kendo-angular-dialog';
 
 const appRoutes: Routes = [
   { path: '',

@@ -14,8 +14,9 @@ import { EditService } from './service/edit.service';
   styleUrls: ['./grid-view.component.css']
 })
 export class GridViewComponent implements OnInit {
+
   public view: Observable<GridDataResult>;
-  customer: any = {};
+
   public gridState: State = {
     sort: [],
     skip: 0,
@@ -27,22 +28,24 @@ export class GridViewComponent implements OnInit {
   private editedRowIndex: number;
 
   constructor(@Inject(EditService) editServiceFactory: any) {
+    console.log('call we constructor');
     this.editService = editServiceFactory();
   }
 
   public ngOnInit(): void {
     this.view = this.editService.map(data => process(data, this.gridState));
-    this.customer = this.view;
-
     this.editService.read();
+    console.log('on init');
   }
 
   public onStateChange(state: State) {
+    console.log('on state change');
     this.gridState = state;
     this.editService.read();
   }
 
   public addHandler({sender}) {
+    console.log('add handler');
     this.closeEditor(sender);
 
     this.formGroup = new FormGroup({
@@ -57,6 +60,7 @@ export class GridViewComponent implements OnInit {
   }
 
   public editHandler({sender, rowIndex, dataItem}) {
+    console.log('edit handler');
     this.closeEditor(sender);
 
     this.formGroup = new FormGroup({
@@ -75,20 +79,24 @@ export class GridViewComponent implements OnInit {
   }
 
   public cancelHandler({sender, rowIndex}) {
+    console.log('cancel handler');
     this.closeEditor(sender, rowIndex);
   }
 
   public saveHandler({sender, rowIndex, formGroup, isNew}) {
+    console.log('save handler');
     const product: Product = formGroup.value;
     this.editService.save(product, isNew);
     sender.closeRow(rowIndex);
   }
 
   public removeHandler({dataItem}) {
+    console.log('remove handler');
     this.editService.remove(dataItem);
   }
 
   private closeEditor(grid, rowIndex = this.editedRowIndex) {
+    console.log('close editor');
     grid.closeRow(rowIndex);
     this.editedRowIndex = undefined;
     this.formGroup = undefined;
