@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { CustomerService } from "../shared/customer/customer.service";
 import { GiphyService } from "../shared/giphy/giphy.service";
 import { NgForm } from "@angular/forms";
+import {Customer} from "../grid-simple-view/customers";
 
 @Component({
   selector: 'app-customer-edit',
@@ -25,10 +26,10 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
       const id = params['id'];
       if (id) {
         console.log('Call onInit method');
-        this.customerService.get(id).subscribe((customer:any) => {
+        this.customerService.getById(id).subscribe((customer:any) => {
           if(customer){
             this.customer = customer;
-            this.customer.href = customer._links.self.href;
+            // this.customer.href = customer._links.self.href;
             this.giphyService.get(customer.firstName).subscribe( url => this.customer.giphyUrl = url);
           }else{
             console.log(`Customer with id '${id}' not found, returning to list`);
@@ -50,15 +51,15 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   }
 
   save(form: NgForm) {
-    console.log('Call save method');
+    console.log('Call save method' + JSON.stringify(form));
     this.customerService.save(form).subscribe(result => {
      this.gotoList();
    }, error => console.error(error));
   }
 
-  remove(href) {
+  remove(customer: Customer) {
     console.log('Call remove method');
-    this.customerService.remove(href).subscribe(result => {
+    this.customerService.remove(customer.id).subscribe(result => {
       this.gotoList();
     }, error => console.error(error));
   }

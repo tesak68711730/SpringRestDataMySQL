@@ -4,7 +4,7 @@
       <mat-card-title><h2>{{customer.firstName ? 'Edit' : 'Add'}} Customer</h2></mat-card-title>
     </mat-card-header>
     <mat-card-content>
-      <input type="hidden" name="href" [(ngModel)]="customer.href">
+      <input type="hidden" name="id" [(ngModel)]="customer.id">
       <mat-form-field>
         <input matInput placeholder="Customer First Name" [(ngModel)]="customer.firstName"
                required name="firstName" #firstname>
@@ -17,8 +17,7 @@
     <mat-card-actions>
       <button mat-raised-button color="primary" type="submit"
               [disabled]="!customerForm.form.valid">Save</button>
-      <button mat-raised-button color="secondary" (click)="remove(customer.href)"
-              *ngIf="customer.href">Delete</button>
+      <button mat-raised-button color="secondary" (click)="remove(customer)" *ngIf="customer.id">Delete</button>
       <a mat-button routerLink="/customer-list">Cancel</a>
     </mat-card-actions>
     <mat-card-footer>

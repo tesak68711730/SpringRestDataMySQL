@@ -1,6 +1,6 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { Router } from "@angular/router";
-import { Http, Response } from "@angular/http";
+import { Http } from "@angular/http";
 import { CustomerService } from "../shared/customer/customer.service";
 
 @Component({
@@ -10,10 +10,7 @@ import { CustomerService } from "../shared/customer/customer.service";
 })
 export class LoginFormComponent implements OnInit {
 
-  // private apiUrl = 'http://localhost:8080/customer';
-
-  private searchUrl = 'http://localhost:8080/customer/search/findByLastName?name=';
-  data: any = {};
+  private searchUrl = 'http://localhost:8080/rest/customers/';
 
   constructor(private router: Router, private http: Http, private customerService: CustomerService) {
   }
@@ -28,16 +25,12 @@ export class LoginFormComponent implements OnInit {
     console.log('pass -> ' + password);
     console.log(this.searchUrl + password);
 
-    this.http.get(this.searchUrl + password)
-      .map((res: Response) => res.json()).subscribe( data => {
-      this.data = data;
-
+    this.customerService.getByLastName(password).subscribe( data => {
       console.log(data);
-      console.log(data._embedded.customer[0].lastName);
-      if (password == data._embedded.customer[0].lastName)
+      if (password == data[0].lastName)
         console.log('succes')
-        this.customerService.setCustomerLoggedIn();
-        this.router.navigate(['/customer-list'])
+      this.customerService.setCustomerLoggedIn();
+      this.router.navigate(['/customer-list'])
     });
   }
 }
