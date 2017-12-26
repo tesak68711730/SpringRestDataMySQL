@@ -25,17 +25,4 @@ public class SpringRestDataMySqlApplication implements CommandLineRunner {
 //		customerRepository.save(new Customer("Ioana", "Ciubotari"));
 //		customerRepository.save(new Customer("Nicolas", "Johnson"));
 	}
-
-//	@Bean
-//	ApplicationRunner init(CarRepository repository) {
-//		return args -> {
-//			Stream.of("Ferrari", "Jaguar", "Porsche", "Lamborghini", "Bugatti",
-//					"AMC Gremlin", "Triumph Stag", "Ford Pinto", "Yugo GV").forEach(name -> {
-//				Car car = new Car();
-//				car.setName(name);
-//				repository.save(car);
-//			});
-//			repository.findAll().forEach(car -> System.out.println(car));
-//		};
-//	}
 }
