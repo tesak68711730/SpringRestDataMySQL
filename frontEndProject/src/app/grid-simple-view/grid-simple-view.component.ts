@@ -15,12 +15,10 @@ import { Router } from "@angular/router";
 export class GridSimpleViewComponent {
 
   customers: any = {};
-  private getDataUrl = 'http://localhost:8080/customers';
-  private daoUrl = 'http://localhost:8080/customer';
 
   constructor(private customerService: CustomerService, private http: Http, private router: Router) {
 
-    this.http.get(this.getDataUrl)
+    this.http.get(this.customerService.URL)
       .map((res: Response) => res.json()).subscribe( data => {
       this.customers = data;
       console.log('customers');
@@ -82,15 +80,14 @@ export class GridSimpleViewComponent {
   saveHandler({sender, rowIndex, formGroup, isNew}): void{
     console.log('save');
     console.log('is new ?  -- ' + isNew);
-    const customerDao: any = formGroup.value;
     if (!isNew) {
-      console.log('Call edit method --> put     ----   ' + this.daoUrl, 'formGrup save put -->>  ' + formGroup.value);
-      this.http.patch(this.daoUrl + '/' + customerDao.id, formGroup.value).subscribe(result => {
+      console.log('Call edit method --> put     ----   ' + this.customerService.URL, 'formGrup save put -->>  ' + formGroup.value);
+      this.http.put(this.customerService.URL + 'update', formGroup.value).subscribe(result => {
 
       }, error => console.error(error));
     } else {
-      console.log('add in grid --->>>  ' + this.daoUrl, 'formGrup save post -->>  ' + formGroup.value);
-      this.http.post(this.daoUrl, formGroup.value).subscribe(result => {
+      console.log('add in grid --->>>  ' + this.customerService.URL, 'formGrup save post -->>  ' + formGroup.value);
+      this.http.post(this.customerService.URL + 'create', formGroup.value).subscribe(result => {
 
       }, error => console.error(error));
     }
@@ -102,8 +99,8 @@ export class GridSimpleViewComponent {
   }
 
   public removeHandler({dataItem}) {
-    console.log('Call remove method' + this.daoUrl + dataItem.id);
-    this.customerService.remove(this.daoUrl + '/' + dataItem.id).subscribe(result => {
+    console.log('Call remove method' + dataItem.id);
+    this.customerService.remove(dataItem.id).subscribe(result => {
 
     }, error => console.error(error));
     this.gridData;

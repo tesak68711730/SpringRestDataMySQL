@@ -41,7 +41,7 @@ export class CustomerService {
     let result: Observable<Object>;
     if (customer.id) {
       console.log('Call save method --> post     ----   ' + JSON.stringify(customer));
-      result = this.http.patch(this.URL + '/update', customer);
+      result = this.http.put(this.URL + 'update', customer);
     } else {
       console.log('Call save method --> put   -----     ' + JSON.stringify(customer));
       result = this.http.post(this.URL + 'create', customer);

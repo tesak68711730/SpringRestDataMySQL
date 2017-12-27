@@ -18,21 +18,22 @@ public class CustomerController{
     @Autowired
     private CustomerRepository repository;
 
+    // -------------------Retrieve All Customers---------------------------------------------
     @GetMapping("/")
     @CrossOrigin(origins = "http://localhost:4200")
     public List<Customer> getAll(){
         return repository.findAll();
     }
-    // -------------------Retrieve All Customers---------------------------------------------
+    // -------------------Retrieve by name Customer---------------------------------------------
     @GetMapping("/{name}")
     @CrossOrigin(origins = "http://localhost:4200")
     public List<Customer> getCustomer(@PathVariable("name") final String name){
         return repository.findByLastName(name);
     }
 
-    // -------------------Retrieve Single Customers------------------------------------------
+    // ------------------- Retrieve bu ID Customer ------------------------------------------
     @GetMapping("/id/{id}")
-    @CrossOrigin(origins = "http://localhost:4200")
+    @CrossOrigin(origins = "http://localhost:4200" )
     public ResponseEntity<?> getId(@PathVariable("id") final Long id) {
         Customer customer = repository.findOne(id);
         if (customer == null)
@@ -45,7 +46,7 @@ public class CustomerController{
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<?> creareCustomer(@RequestBody Customer customer, UriComponentsBuilder ucBuilder) {
+    public ResponseEntity<?> createCustomer(@RequestBody Customer customer, UriComponentsBuilder ucBuilder) {
         repository.save(customer);
 
         HttpHeaders headers = new HttpHeaders();
@@ -68,12 +69,21 @@ public class CustomerController{
         return new ResponseEntity<>(currentCustumer, HttpStatus.OK);
     }
 
-    // ------------------- Delete a Customer-----------------------------------------
+    // ------------------- Delete a Customer byId-----------------------------------------
 
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> deleteUser(@PathVariable("id") long id) {
         repository.delete(id);
+        return new ResponseEntity<Customer>(HttpStatus.NO_CONTENT);
+    }
+
+    // ------------------- Delete a Customer-----------------------------------------
+
+    @RequestMapping(value = "/delete", method = RequestMethod.DELETE)
+    @CrossOrigin(origins = "http://localhost:4200")
+    public ResponseEntity<?> deleteUser(@RequestBody Customer customer) {
+        repository.delete(customer.getId());
         return new ResponseEntity<Customer>(HttpStatus.NO_CONTENT);
     }
 }

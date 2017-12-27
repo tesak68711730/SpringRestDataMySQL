@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import {Response} from "@angular/http";
 
 const CREATE_ACTION = 'create';
 const UPDATE_ACTION = 'update';

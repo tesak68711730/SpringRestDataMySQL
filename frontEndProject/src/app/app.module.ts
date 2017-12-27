@@ -23,7 +23,7 @@ import { GridSimpleViewComponent } from './grid-simple-view/grid-simple-view.com
 
 const appRoutes: Routes = [
   { path: '',
-    redirectTo: '/login',
+    redirectTo: 'login',
     pathMatch: 'full'
   },
   {
@@ -32,33 +32,37 @@ const appRoutes: Routes = [
   },
   {
     path: 'customer-list',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     component: CustomerListComponent
   },
   {
     path: 'customer-add',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     component: CustomerEditComponent
   },
   {
     path: 'customer-edit/:id',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     component: CustomerEditComponent
   },
   {
     path: 'table-view',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     component: TableViewComponent
   },
   {
     path: 'grid-view',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     component: GridViewComponent,
   },
   {
     path: 'grid-simple-view',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     component: GridSimpleViewComponent
+  },
+  { path: '**',
+    redirectTo: 'login',
+    pathMatch: 'full'
   }
 ];
 
