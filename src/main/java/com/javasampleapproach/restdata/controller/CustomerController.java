@@ -27,8 +27,11 @@ public class CustomerController{
     // -------------------Retrieve by name Customer---------------------------------------------
     @GetMapping("/{name}")
     @CrossOrigin(origins = "http://localhost:4200")
-    public List<Customer> getCustomer(@PathVariable("name") final String name){
-        return repository.findByLastName(name);
+    public ResponseEntity<?>  getCustomer(@PathVariable("name") final String name){
+        Customer customer = repository.findByLastName(name);
+        if (customer == null)
+            return new ResponseEntity("User with name = " + name+ " not found", HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 
     // ------------------- Retrieve bu ID Customer ------------------------------------------
@@ -37,8 +40,7 @@ public class CustomerController{
     public ResponseEntity<?> getId(@PathVariable("id") final Long id) {
         Customer customer = repository.findOne(id);
         if (customer == null)
-            return new ResponseEntity("User with id " + id
-                    + " not found", HttpStatus.NOT_FOUND);
+            return new ResponseEntity("User with id = " + id + " not found", HttpStatus.NOT_FOUND);
         return new ResponseEntity<>(customer, HttpStatus.OK);
     }
 

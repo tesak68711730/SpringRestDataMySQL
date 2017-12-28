@@ -28,7 +28,6 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
         this.customerService.getById(id).subscribe((customer:any) => {
           if(customer){
             this.customer = customer;
-            // this.customer.href = customer._links.self.href;
             this.giphyService.get(customer.firstName).subscribe( url => this.customer.giphyUrl = url);
           }else{
             console.log(`Customer with id '${id}' not found, returning to list`);
@@ -50,7 +49,7 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
   }
 
   save(form: NgForm) {
-    console.log('Call save method' + JSON.stringify(form));
+    console.log('Call save method');
     this.customerService.save(form).subscribe(result => {
      this.gotoList();
    }, error => console.error(error));

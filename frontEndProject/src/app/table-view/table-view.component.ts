@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from "../shared/customer/customer.service";
-import { Router} from "@angular/router";
+import { Router } from "@angular/router";
 
 @Component({
   selector: 'app-table-view',
@@ -13,27 +13,16 @@ export class TableViewComponent implements OnInit {
 
   constructor(private customerService: CustomerService,
               private router: Router,) {
-    this.customerService.getAll().subscribe(data=>{
-      this.customers = data;
+    this.customerService.getAll()
+      .subscribe(data=>{
+        this.customers = data;
     });
   }
 
   ngOnInit() {}
 
   edit(id){
-    console.log('onClick press edit' + id);
+    console.log('onClick press edit id = ' + id);
     this.router.navigate(['/customer-edit/' + id]);
-  }
-
-  remove(href) {
-    console.log('Call delete method -->  ' + href);
-    this.customerService.remove(href).subscribe(result => {
-      this.gotoList();
-    }, error => console.error(error));
-  }
-
-  private gotoList() {
-    console.log('Call gotoList method');
-    this.router.navigate(['/table-view']);
   }
 }

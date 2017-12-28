@@ -5,7 +5,6 @@ import "rxjs/add/operator/map";
 @Injectable()
 export class GiphyService {
 
-  // Public beta key: https://github.com/Giphy/GiphyAPI#public-beta-key
   giphyApi = '//api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&limit=1&q=';
 
   constructor(public http: HttpClient) { }
@@ -20,5 +19,4 @@ export class GiphyService {
       }
     });
   }
-
 }

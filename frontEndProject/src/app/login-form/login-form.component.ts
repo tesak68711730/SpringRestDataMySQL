@@ -10,8 +10,6 @@ import { CustomerService } from "../shared/customer/customer.service";
 })
 export class LoginFormComponent implements OnInit {
 
-  private searchUrl = 'http://localhost:8080/rest/customers/';
-
   constructor(private router: Router, private http: Http, private customerService: CustomerService) {
   }
 
@@ -23,14 +21,18 @@ export class LoginFormComponent implements OnInit {
     const password = e.target.elements[1].value;
     console.log('user -> ' + userName);
     console.log('pass -> ' + password);
-    console.log(this.searchUrl + password);
+    console.log(this.customerService.URL+ password);
 
     this.customerService.getByLastName(password).subscribe( data => {
-      console.log(data);
-      if (password == data[0].lastName)
-        console.log('succes')
-      this.customerService.setCustomerLoggedIn();
-      this.router.navigate(['/customer-list'])
-    });
+      if (password == data.lastName) {
+        console.log('login success' + JSON.stringify(data));
+        this.customerService.setCustomerLoggedIn();
+        this.router.navigate(['/customer-list'])
+      }
+      else {
+        console.log('login fail' +JSON.stringify(data));
+        this.router.navigate(['/login'])
+      }
+    }, error => alert(error.error));
   }
 }

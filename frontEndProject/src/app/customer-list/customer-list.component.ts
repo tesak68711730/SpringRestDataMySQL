@@ -12,7 +12,6 @@ export class CustomerListComponent implements OnInit {
   customers: Array<any>;
 
   constructor(private customerService: CustomerService, private giphyService: GiphyService) {
-
     this.customerService.getAll().subscribe(data=>{
       this.customers = data;
       for (const customer of this.customers){
@@ -23,5 +22,4 @@ export class CustomerListComponent implements OnInit {
 
   ngOnInit() {
   }
-
 }

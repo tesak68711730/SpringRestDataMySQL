@@ -40,17 +40,17 @@ export class CustomerService {
     console.log('save - > ' + JSON.stringify(customer));
     let result: Observable<Object>;
     if (customer.id) {
-      console.log('Call save method --> post     ----   ' + JSON.stringify(customer));
+      console.log('Call save method --> put');
       result = this.http.put(this.URL + 'update', customer);
     } else {
-      console.log('Call save method --> put   -----     ' + JSON.stringify(customer));
+      console.log('Call save method --> post');
       result = this.http.post(this.URL + 'create', customer);
     }
     return result;
   }
 
   remove(id: number) {
-    console.log('Call remove method --> delete   -----   ' + id);
+    console.log('Call remove method id = ' + id);
     return this.http.delete(this.URL + 'delete/' + id);
   }
 }
