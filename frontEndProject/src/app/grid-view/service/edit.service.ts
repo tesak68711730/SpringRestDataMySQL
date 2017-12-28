@@ -21,7 +21,6 @@ export class EditService extends BehaviorSubject<any[]> {
     this.fetch()
       .do(data => {
         this.data = data;
-        console.log(JSON.stringify([data]))
       })
       .subscribe(data => {
         super.next(data);
@@ -29,44 +28,31 @@ export class EditService extends BehaviorSubject<any[]> {
   }
 
   public save(data: any, isNew?: boolean) {
-    console.log('save func data' + JSON.stringify(data) + 'isNew ? ' + isNew);
+    console.log('save func data');
     this.reset();
 
-    // this.fetch(action, data)
-    //   .subscribe(() => this.read(), () => this.read());
-
-    console.log('save');
-    console.log('is new ?  -- ' + isNew);
     if (!isNew) {
-      console.log('Call edit method --> put     ----   ' + this.URL, + JSON.stringify(data));
-      this.http.put(this.URL + 'update', data).subscribe(result => {
-
-      }, error => console.error(error));
+      console.log('Call edit method --> row id=' + data.id);
+      this.http.put(this.URL + 'update', data).subscribe(() => this.read(), () => this.read());
     } else {
-      console.log('add in grid --->>>   psot    ----   ' + this.URL, + JSON.stringify(data));
-      this.http.post(this.URL + 'create', data).subscribe(result => {
-
-      }, error => console.error(error));
+      console.log('add in grid method --> post');
+      this.http.post(this.URL + 'create', data).subscribe(() => this.read(), () => this.read());
     }
   }
 
   public remove(dataItem: any) {
-    console.log('remove func' + JSON.stringify(dataItem.id));
+    console.log('remove func row id=' + dataItem.id);
     this.reset();
-    return this.http.delete(this.URL + 'delete/' + dataItem.id).subscribe(result => {
-
-    }, error => console.error(error));
+    return this.http.delete(this.URL + 'delete/' + dataItem.id).subscribe(() => this.read(), () => this.read());
   }
 
   private reset() {
-    console.log('reset func ');
+    console.log('reset func');
     this.data = [];
   }
 
   private fetch(): Observable<any[]>  {
-    console.log('data-->> ' + JSON.stringify(this.http
-      .get(`http://localhost:8080/rest/customers/`)
-      .map(res => <any[]>res)));
+    console.log('refresh func');
     return this.http
       .get(`http://localhost:8080/rest/customers/`)
       .map(res => <any[]>res);

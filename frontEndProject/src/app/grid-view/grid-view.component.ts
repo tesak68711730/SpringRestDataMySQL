@@ -19,13 +19,7 @@ export class GridViewComponent implements OnInit {
   public gridState: State = {
     sort: [],
     skip: 0,
-    take: 10,
-
-  // Initial filter descriptor
-  filter: {
-    logic: 'and',
-    filters: [{ field: 'firstName', operator: 'contains', value: 'alina' }]
-  }
+    take: 10
   };
   public formGroup: FormGroup;
 
@@ -73,7 +67,6 @@ export class GridViewComponent implements OnInit {
     });
 
     this.editedRowIndex = rowIndex;
-
     sender.editRow(rowIndex, this.formGroup);
   }
 

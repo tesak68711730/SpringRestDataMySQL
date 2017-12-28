@@ -1,7 +1,6 @@
 <kendo-grid  class="pad"
              [data]="view | async" [pageSize]="gridState.take"
              [skip]="gridState.skip" [sort]="gridState.sort"
-             [filter]="gridState.filter"
              [pageable]="true" [sortable]="true" filterable="menu"
   (dataStateChange)="onStateChange($event)"
   (edit)="editHandler($event)" (cancel)="cancelHandler($event)"
@@ -14,7 +13,7 @@
   <kendo-grid-column field="id" title="ID" width="60" [filterable]="false" [sortable]="false"></kendo-grid-column>
   <kendo-grid-column field="firstName" title="First Name"></kendo-grid-column>
   <kendo-grid-column field="lastName" title="Last Name"></kendo-grid-column>
-  <kendo-grid-command-column title="command" width="160">
+  <kendo-grid-command-column title="command" width="220">
     <ng-template kendoGridCellTemplate let-isNew="isNew">
       <button kendoGridEditCommand class="k-primary">Edit</button>
       <button kendoGridRemoveCommand>Remove</button>
