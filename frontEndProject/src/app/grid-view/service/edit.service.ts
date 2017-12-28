@@ -3,10 +3,6 @@ import { Observable } from 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-const CREATE_ACTION = 'create';
-const UPDATE_ACTION = 'update';
-const REMOVE_ACTION = 'destroy';
-
 @Injectable()
 export class EditService extends BehaviorSubject<any[]> {
   constructor(private http: HttpClient) {
@@ -14,6 +10,7 @@ export class EditService extends BehaviorSubject<any[]> {
   }
 
   private data: any[] = [];
+  public URL = 'http://localhost:8080/rest/customers/';
 
   public read() {
     console.log('read func');
@@ -32,33 +29,33 @@ export class EditService extends BehaviorSubject<any[]> {
   }
 
   public save(data: any, isNew?: boolean) {
-    console.log('save func data' + data + 'isNew ? ' + isNew);
-    const action = isNew ? CREATE_ACTION : UPDATE_ACTION;
+    console.log('save func data' + JSON.stringify(data) + 'isNew ? ' + isNew);
     this.reset();
 
-    this.fetch(action, data)
-      .subscribe(() => this.read(), () => this.read());
+    // this.fetch(action, data)
+    //   .subscribe(() => this.read(), () => this.read());
+
+    console.log('save');
+    console.log('is new ?  -- ' + isNew);
+    if (!isNew) {
+      console.log('Call edit method --> put     ----   ' + this.URL, + JSON.stringify(data));
+      this.http.put(this.URL + 'update', data).subscribe(result => {
+
+      }, error => console.error(error));
+    } else {
+      console.log('add in grid --->>>   psot    ----   ' + this.URL, + JSON.stringify(data));
+      this.http.post(this.URL + 'create', data).subscribe(result => {
+
+      }, error => console.error(error));
+    }
   }
 
-  public remove(data: any) {
-    console.log('remove func');
+  public remove(dataItem: any) {
+    console.log('remove func' + JSON.stringify(dataItem.id));
     this.reset();
+    return this.http.delete(this.URL + 'delete/' + dataItem.id).subscribe(result => {
 
-    this.fetch(REMOVE_ACTION, data)
-      .subscribe(() => this.read(), () => this.read());
-  }
-
-  public resetItem(dataItem: any) {
-    console.log('reset item func');
-    if (!dataItem) { return; }
-
-    // find orignal data item
-    const originalDataItem = this.data.find(item => item.ProductID === dataItem.ProductID);
-
-    // revert changes
-    Object.assign(originalDataItem, dataItem);
-
-    super.next(this.data);
+    }, error => console.error(error));
   }
 
   private reset() {
@@ -66,18 +63,12 @@ export class EditService extends BehaviorSubject<any[]> {
     this.data = [];
   }
 
-  private fetch(action: string = '', data?: any): Observable<any[]>  {
-    console.log('fetch func param' + action + ' -  data' + data + '  data-->> ' + JSON.stringify(this.http
-      .jsonp(`https://demos.telerik.com/kendo-ui/service/Products/${action}?${this.serializeModels(data)}`, 'callback')
+  private fetch(): Observable<any[]>  {
+    console.log('data-->> ' + JSON.stringify(this.http
+      .get(`http://localhost:8080/rest/customers/`)
       .map(res => <any[]>res)));
     return this.http
-      .jsonp(`https://demos.telerik.com/kendo-ui/service/Products/${action}?${this.serializeModels(data)}`, 'callback')
+      .get(`http://localhost:8080/rest/customers/`)
       .map(res => <any[]>res);
-  }
-
-  private serializeModels(data?: any): string {
-    console.log('serialize func');
-    console.log(data ? `&models=${JSON.stringify([data])}` : 'empty');
-    return data ? `&models=${JSON.stringify([data])}` : '';
   }
 }

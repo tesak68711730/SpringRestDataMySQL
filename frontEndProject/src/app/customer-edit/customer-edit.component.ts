@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { CustomerService } from "../shared/customer/customer.service";
 import { GiphyService } from "../shared/giphy/giphy.service";
 import { NgForm } from "@angular/forms";
-import {Customer} from "../grid-simple-view/customers";
 
 @Component({
   selector: 'app-customer-edit',
@@ -57,7 +56,7 @@ export class CustomerEditComponent implements OnInit, OnDestroy {
    }, error => console.error(error));
   }
 
-  remove(customer: Customer) {
+  remove(customer: any) {
     console.log('Call remove method');
     this.customerService.remove(customer.id).subscribe(result => {
       this.gotoList();

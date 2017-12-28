@@ -5,7 +5,6 @@ import { FormControl, FormGroup, Validators} from "@angular/forms";
 import { GridDataResult } from "@progress/kendo-angular-grid";
 import { State, process } from "@progress/kendo-data-query";
 
-import { Product } from './model';
 import { EditService } from './service/edit.service';
 
 @Component({
@@ -20,7 +19,13 @@ export class GridViewComponent implements OnInit {
   public gridState: State = {
     sort: [],
     skip: 0,
-    take: 10
+    take: 10,
+
+  // Initial filter descriptor
+  filter: {
+    logic: 'and',
+    filters: [{ field: 'firstName', operator: 'contains', value: 'alina' }]
+  }
   };
   public formGroup: FormGroup;
 
@@ -49,11 +54,9 @@ export class GridViewComponent implements OnInit {
     this.closeEditor(sender);
 
     this.formGroup = new FormGroup({
-      'ProductID': new FormControl(),
-      'ProductName': new FormControl('', Validators.required),
-      'UnitPrice': new FormControl(0),
-      'UnitsInStock': new FormControl('', Validators.compose([Validators.required, Validators.pattern('^[0-9]{1,3}')])),
-      'Discontinued': new FormControl(false)
+      'id': new FormControl(),
+      'firstName': new FormControl('', Validators.required),
+      'lastName': new FormControl('', Validators.required)
     });
 
     sender.addRow(this.formGroup);
@@ -64,13 +67,9 @@ export class GridViewComponent implements OnInit {
     this.closeEditor(sender);
 
     this.formGroup = new FormGroup({
-      'ProductID': new FormControl(dataItem.ProductID),
-      'ProductName': new FormControl(dataItem.ProductName, Validators.required),
-      'UnitPrice': new FormControl(dataItem.UnitPrice),
-      'UnitsInStock': new FormControl(
-        dataItem.UnitsInStock,
-        Validators.compose([Validators.required, Validators.pattern('^[0-9]{1,3}')])),
-      'Discontinued': new FormControl(dataItem.Discontinued)
+      'id': new FormControl(dataItem.id),
+      'firstName': new FormControl(dataItem.firstName, Validators.required),
+      'lastName': new FormControl(dataItem.lastName, Validators.required)
     });
 
     this.editedRowIndex = rowIndex;
@@ -85,8 +84,7 @@ export class GridViewComponent implements OnInit {
 
   public saveHandler({sender, rowIndex, formGroup, isNew}) {
     console.log('save handler');
-    const product: Product = formGroup.value;
-    this.editService.save(product, isNew);
+    this.editService.save(formGroup.value, isNew);
     sender.closeRow(rowIndex);
   }
 

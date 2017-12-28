@@ -24,9 +24,4 @@ export class AppComponent {
   gridView(){
     this.router.navigate(['/grid-view'])
   }
-
-  gridSimpleView(){
-    this.router.navigate(['/grid-simple-view'])
-  }
 }
-

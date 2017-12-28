@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 
 import { AppComponent } from './app.component';
@@ -19,11 +19,10 @@ import { TableViewComponent } from './table-view/table-view.component';
 import { GridViewComponent } from './grid-view/grid-view.component';
 import { GridModule } from "@progress/kendo-angular-grid";
 import { EditService } from "./grid-view/service/edit.service";
-import { GridSimpleViewComponent } from './grid-simple-view/grid-simple-view.component';
 
 const appRoutes: Routes = [
   { path: '',
-    redirectTo: 'login',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
   {
@@ -55,11 +54,6 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard],
     component: GridViewComponent,
   },
-  {
-    path: 'grid-simple-view',
-    canActivate: [AuthGuard],
-    component: GridSimpleViewComponent
-  },
   { path: '**',
     redirectTo: 'login',
     pathMatch: 'full'
@@ -74,7 +68,6 @@ const appRoutes: Routes = [
     LoginFormComponent,
     TableViewComponent,
     GridViewComponent,
-    GridSimpleViewComponent
   ],
   imports: [
     BrowserModule,
