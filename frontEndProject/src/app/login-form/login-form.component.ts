@@ -10,6 +10,7 @@ import { CustomerService } from "../shared/customer/customer.service";
 })
 export class LoginFormComponent implements OnInit {
 
+  data: any;
   constructor(private router: Router, private http: Http, private customerService: CustomerService) {
   }
 
@@ -24,7 +25,8 @@ export class LoginFormComponent implements OnInit {
     console.log(this.customerService.URL+ password);
 
     this.customerService.getByLastName(password).subscribe( data => {
-      if (password == data.lastName) {
+      this.data = data;
+      if (password == this.data.lastName) {
         console.log('login success' + JSON.stringify(data));
         this.customerService.setCustomerLoggedIn();
         this.router.navigate(['/customer-list'])

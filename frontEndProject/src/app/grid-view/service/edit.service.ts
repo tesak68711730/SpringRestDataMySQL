@@ -54,7 +54,7 @@ export class EditService extends BehaviorSubject<any[]> {
   private fetch(): Observable<any[]>  {
     console.log('refresh func');
     return this.http
-      .get(`http://localhost:8080/rest/customers/`)
+      .get(this.URL)
       .map(res => <any[]>res);
   }
 }
